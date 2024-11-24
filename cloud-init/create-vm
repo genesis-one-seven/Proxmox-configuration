@@ -12,5 +12,7 @@ echo -e "yes"|  ssh evernode@192.168.1.101
 
 sudo fallocate -l 4G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && sudo cp /etc/fstab /etc/fstab.bak && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
+sudo echo "127.0.0.1 16.genesis-one-seven-1.online" >> /etc/hosts
+
 sudo curl -fsSL https://raw.githubusercontent.com/EvernodeXRPL/evernode-24-resources/main/sashimono/installer/evernode.sh | sudo bash -s install
 
