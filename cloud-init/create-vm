@@ -20,7 +20,8 @@ sleep 5
 
 ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.1.$evernode_number"
 
-# questa riga dà permisison denied
+sudo ssh -o StrictHostKeyChecking=accept-new evernode@192.168.1.101 "sudo chown evernode /etc/hosts"
+
 sudo ssh -o StrictHostKeyChecking=accept-new evernode@192.168.1.101 "sudo echo \"127.0.0.1 16.genesis-one-seven-1.online\" >> /etc/hosts"
 
 ssh -o StrictHostKeyChecking=accept-new evernode@192.168.1.10$evernode_number "sudo fallocate -l 4G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && sudo cp /etc/fstab /etc/fstab.bak && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab"
