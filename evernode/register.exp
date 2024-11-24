@@ -3,7 +3,7 @@
 set account [lindex $argv 0]
 set secret  [lindex $argv 1]
 
-spawn ./evernode.sh transfer
+spawn ./evernode.sh register
 expect "Do you want to connect to the default xahaud server (wss://xahau.network)?"
 send -- "y\r"
 expect "Specify the Xahau account address:\r"
