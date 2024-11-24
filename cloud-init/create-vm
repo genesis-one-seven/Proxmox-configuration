@@ -1,18 +1,26 @@
-qm clone 9000 101 --name evernode-1-costa-16
+#!/bin/bash
 
-qm set 101 --sshkey ~/.ssh/id_rsa.pub
+echo -n "Please enter the evernode number (ordinal inside this server): "
 
-qm set 101 --ipconfig0 ip=192.168.1.101/24,gw=192.168.1.1
+read evernode_number
 
-qm start 101
+echo -n "Please enter the host number: "
 
-ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.1.101"
+read host_number
 
-echo -e "yes"|  ssh evernode@192.168.1.101
+qm clone 9000 10$evernode_number --name evernode-$evernode_number-costa-$host_number
 
-sudo fallocate -l 4G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && sudo cp /etc/fstab /etc/fstab.bak && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+qm set 10$evernode_number --sshkey ~/.ssh/id_rsa.pub
 
-sudo echo "127.0.0.1 16.genesis-one-seven-1.online" >> /etc/hosts
+qm set 10$evernode_number --ipconfig0 ip=192.168.1.$evernode_number/24,gw=192.168.1.1
 
-sudo curl -fsSL https://raw.githubusercontent.com/EvernodeXRPL/evernode-24-resources/main/sashimono/installer/evernode.sh | sudo bash -s install
+qm start $evernode_number
 
+sleep 5
+
+ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.1.$evernode_number"
+
+# questa riga dà permisison denied
+sudo ssh -o StrictHostKeyChecking=accept-new evernode@192.168.1.101 "sudo echo \"127.0.0.1 16.genesis-one-seven-1.online\" >> /etc/hosts"
+
+ssh -o StrictHostKeyChecking=accept-new evernode@192.168.1.10$evernode_number "sudo fallocate -l 4G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && sudo cp /etc/fstab /etc/fstab.bak && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab"
