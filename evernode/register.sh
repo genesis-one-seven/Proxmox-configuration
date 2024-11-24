@@ -13,11 +13,12 @@ echo -n "Please enter the domain number: "
 read domain
 
 
-wget  https://raw.githubusercontent.com/EvernodeXRPL/evernode-resources/main/sashimono/installer/evernode.sh 
+wget  https://raw.githubusercontent.com/EvernodeXRPL/evernode-24-resources/main/sashimono/installer/evernode.sh 
 
 sudo apt install expect
 
 chmod +x evernode.sh
+chmod +x transfer.exp
 chmod +x register.exp
 
 expect ./transfer.exp $account $secret_key
