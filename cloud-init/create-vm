@@ -8,17 +8,17 @@ echo -n "Please enter the host number: "
 
 read host_number
 
-qm clone 9000 10$evernode_number --name evernode-$evernode_number-costa-$host_number
+qm clone 6000 10$evernode_number --name evernode-$evernode_number-costa-$host_number
 
 qm set 10$evernode_number --sshkey ~/.ssh/id_rsa.pub
 
 qm set 10$evernode_number --ipconfig0 ip=192.168.1.10$evernode_number/24,gw=192.168.1.1
 
-qm start $evernode_number
+qm start 10$evernode_number
 
 sleep 10
 
-ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.10$evernode_number"
+ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.1.10$evernode_number"
 
 sudo ssh -o StrictHostKeyChecking=accept-new evernode@192.168.1.10$evernode_number "sudo chown evernode /etc/hosts"
 
